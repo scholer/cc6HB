@@ -1,5 +1,39 @@
 
 
+"""
+Need to know: (Investigate, then ask William)
+
+* Is A:C pair equivalent to C:A ? Or "slightly equivalent"?
+
+* Do we need to design pair-sequences explicitly to not dimerize,
+    or will the anti-nucleation hairpins prevent this?
+
+* Do we need to check for complementarity on non-perpendicular angles,
+    e.g. a bundle that hybridizes out of lattice?
+
+* Which criteria do we select against? And where to we set the criteria cutoff? (If using binary criteria)
+    - Sliding
+    - Reversability
+    - Self dimerization? Palindromic sequences
+    - Hetero dimerization? Cross check
+    - Uniqueness to other parallel bundles? (Cross check, forward and reverse)
+    - Uniqueness to complementary bundles? (Cross check, complement, forward and reverse)
+
+* Do we need to have a scoring algorithm, or just binary criteria? (accept/reject)
+
+* Is random generation of bundle-sequences followed by selection "good enough",
+    or do we need to implement evolution-type optimization of the sequences?
+    The sequences all depend on each other, so evolution could be tricky or produce weird results...
+
+* How much should we pay attention to "ensemble" weaknesses,
+    e.g. the fact that one weak bundle itself doesn't matter too much (e.g. sliding),
+    but if the whole ensemble/unit can slide (or reverse), then that is much worse.
+    Gut feeling: We don't have to worry too much at first, since we can have enough sequence space
+    to produce good sequences for individual bundles.
+    (And if they are all good, then ensemble should also be OK.)
+
+"""
+
 
 from random import choice
 
@@ -79,7 +113,13 @@ def sequence_is_ok(sequence):
 
 
 def cross_check_seqs(seq1, seq2):
-    """ Crosscheck whether two sequences will interact. """
+    """
+    Crosscheck whether two sequences will interact.
+    We need to check:
+    1) Compare the generated sequences to each other.
+    2) Compare the complementary bundles to the generated sequences, and each other.
+
+    """
     # seq_sets = tuple(set(pair) for pair in sequence)
     pass
 
